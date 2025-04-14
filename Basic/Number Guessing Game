@@ -1,41 +1,58 @@
 import java.util.Scanner;
 import java.util.Random;
 
-public class NumberGuessingGame{
-    public static void main(String[] args){
+public class NumberGuessingGame {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
+
         System.out.println("Welcome to the Number Guessing Game!!");
+
         System.out.print("Enter the lower limit: ");
         int min = sc.nextInt();
+
         System.out.print("Enter the upper limit: ");
         int max = sc.nextInt();
-        int numberToGuess = random.nextInt(max-min+1) + min;
-        int guess;
+
+        if (min >= max) {
+            System.out.println("Invalid range! Lower limit should be less than upper limit.");
+            return;
+        }
+
+        int numberToGuess = random.nextInt(max - min + 1) + min;
+        int guess = 0;
         int attempts = 0;
-        
-        System.out.println("I am thinking of a number from "+ min + " to " + max +" .Can you guess the number?");
-        
-        while(true){
+        int maxAttempts = 7;
+
+        System.out.println("I am thinking of a number from " + min + " to " + max + ". Can you guess the number?");
+
+        while (attempts < maxAttempts) {
             System.out.print("Enter your guess: ");
             guess = sc.nextInt();
-            attempts++;
-            
-            if((guess>max) || (guess<min)){
-                System.out.println("Choose a number within the range");
+
+            if (guess < min || guess > max) {
+                System.out.println("Choose a number within the range.");
                 continue;
             }
-            
-            if(guess==numberToGuess){
-                System.out.println("Congratulations!! You have guessed the number in "+ attempts +" attempts!");
+
+            attempts++;
+
+            if (guess == numberToGuess) {
+                System.out.println("Congratulations!! You guessed the number in " + attempts + " attempts!");
                 break;
+            } else if (guess > numberToGuess) {
+                System.out.println("Too High!! Guess Again.");
+            } else {
+                System.out.println("Too Low!! Guess Again.");
             }
-            else if(guess > numberToGuess){
-                System.out.println("Too High!! Guess Again");
-            }
-            else {
-                System.out.println("Too Low!! Guess Again");
-            }
+
+            System.out.println("Attempts remaining: " + (maxAttempts - attempts));
         }
+
+        if (guess != numberToGuess) {
+            System.out.println("Game Over! You reached the maximum number of tries.");
+            System.out.println("The number was: " + numberToGuess);
+        }
+        sc.close();
     }
 }
