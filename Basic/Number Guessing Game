@@ -5,25 +5,30 @@ public class NumberGuessingGame{
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
-        int numberToGuess = random.nextInt(100) + 1;
+        System.out.println("Welcome to the Number Guessing Game!!");
+        System.out.print("Enter the lower limit: ");
+        int min = sc.nextInt();
+        System.out.print("Enter the upper limit: ");
+        int max = sc.nextInt();
+        int numberToGuess = random.nextInt(max-min+1) + min;
         int guess;
         int attempts = 0;
         
-        System.out.println("Welcome to the Number Guessing Game!!");
-        System.out.println("I am thinking of a number from 1 to 100. Can you guess the number?");
+        System.out.println("I am thinking of a number from "+ min + " to " + max +" .Can you guess the number?");
         
         while(true){
-            System.out.println("Enter your guess: ");
+            System.out.print("Enter your guess: ");
             guess = sc.nextInt();
             attempts++;
             
-            if((guess>100) || (guess<1)){
+            if((guess>max) || (guess<min)){
                 System.out.println("Choose a number within the range");
                 continue;
             }
             
             if(guess==numberToGuess){
                 System.out.println("Congratulations!! You have guessed the number in "+ attempts +" attempts!");
+                break;
             }
             else if(guess > numberToGuess){
                 System.out.println("Too High!! Guess Again");
